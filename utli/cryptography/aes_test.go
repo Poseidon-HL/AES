@@ -98,3 +98,36 @@ func TestDecryptAESByCBC(t *testing.T) {
 		})
 	}
 }
+
+func TestDecryptAESByECB(t *testing.T) {
+	type args struct {
+		key        []byte
+		ciphertext []byte
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    []byte
+		wantErr bool
+	}{
+		{name: "TestDecryptCorrectness", args: args{
+			key:        nil,
+			ciphertext: nil,
+		}, want: []byte("Welcome to Huazhong University of Science and Technology ......."), wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var err error
+			tt.args.key, _ = GenerateKey(16)
+			tt.args.ciphertext, err = EncryptAESByECB(tt.args.key, tt.want)
+			got, err := DecryptAESByECB(tt.args.key, tt.args.ciphertext)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("DecryptAESByECB() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("DecryptAESByECB() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
