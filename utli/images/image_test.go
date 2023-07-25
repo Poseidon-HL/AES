@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const SourceImagePath = "D:\\Projects\\AES\\resource\\HUST.jpg"
+const SourceImagePath = "D:\\Projects\\AES\\resource\\Ecb_encryption.png"
 
 func TestConvertImage(t *testing.T) {
 	type args struct {
@@ -20,7 +20,7 @@ func TestConvertImage(t *testing.T) {
 	}{
 		{name: "TestConvertAccuracy", args: args{
 			imgByte:  nil,
-			filePath: "D:\\Projects\\AES\\resource\\HUST_",
+			filePath: "D:\\Projects\\AES\\resource\\Ecb_encryption_",
 		}},
 	}
 	for _, tt := range tests {
@@ -31,7 +31,7 @@ func TestConvertImage(t *testing.T) {
 				t.Error("LoadImage error, err=", err)
 				return
 			}
-			tt.args.filePath = tt.args.filePath + strconv.FormatInt(time.Now().Unix(), 10) + ".jpeg"
+			tt.args.filePath = tt.args.filePath + strconv.FormatInt(time.Now().Unix(), 10) + ".png"
 			if err = ConvertImage(tt.args.imgByte, tt.args.filePath); (err != nil) != tt.wantErr {
 				t.Errorf("ConvertImage() error = %v, wantErr %v", err, tt.wantErr)
 			}

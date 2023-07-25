@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"github.com/sirupsen/logrus"
 	"image"
-	"image/jpeg"
+	"image/png"
 	"io"
 	"os"
 )
@@ -44,7 +44,7 @@ func ConvertImage(imgByte []byte, filePath string) error {
 			logrus.Error("[ConvertImage] Close error, err=", err)
 		}
 	}()
-	err = jpeg.Encode(out, img, nil)
+	err = png.Encode(out, img)
 	if err != nil {
 		logrus.Error("[ConvertImage] Encode error, err=", err)
 		return err
