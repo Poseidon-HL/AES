@@ -22,6 +22,7 @@ func EncryptAES(key []byte, plaintext []byte) ([]byte, error) {
 	return ciphertext, nil
 }
 
+// EncryptAESByECB 自动不全后完成加密
 func EncryptAESByECB(key []byte, plaintext []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
