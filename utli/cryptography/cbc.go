@@ -3,6 +3,7 @@ package cryptography
 import (
 	"crypto/aes"
 	"crypto/cipher"
+	"errors"
 	"github.com/sirupsen/logrus"
 	"github.com/zenazn/pkcs7pad"
 )
@@ -114,4 +115,17 @@ func (c *CBCEncrypt) GetBlockNum() int {
 
 func (c *CBCEncrypt) IsEncrypted() bool {
 	return c.encrypted
+}
+
+func (c *CBCEncrypt) CompareSimilarities(cbc *CBCEncrypt) (float64, error) {
+	sameBytesCnt := float64(0)
+	if len(c.data) != len(cbc.data) {
+		return 0, errors.New("")
+	}
+	for i := 0; i < len(c.data); i++ {
+		if c.hybridChunk[i] == cbc.hybridChunk[i] {
+			sameBytesCnt++
+		}
+	}
+	return sameBytesCnt / float64(len(c.data)), nil
 }

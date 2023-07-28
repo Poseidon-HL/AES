@@ -221,6 +221,10 @@ func TestECBEncrypt_CompareSimilarities(t *testing.T) {
 	key1, _ := GenerateKey(16)
 	key2, _ := GenerateKey(16)
 	exp1Data, err := images.LoadImage("D:\\Projects\\AES\\resource\\Ecb_encryption.png")
+	if err != nil {
+		t.Errorf("CompareSimilarities() LoadImage error = %v", err)
+		return
+	}
 	exp2Data := make([]byte, len(exp1Data))
 	copy(exp2Data, exp1Data)
 	once := sync.Once{}
@@ -242,10 +246,6 @@ func TestECBEncrypt_CompareSimilarities(t *testing.T) {
 			})
 		}
 		t.Run(tt.name, func(t *testing.T) {
-			if err != nil {
-				t.Errorf("CompareSimilarities() LoadImage error = %v", err)
-				return
-			}
 			e := &ECBEncrypt{}
 			if err = e.Load(exp1Data, key1).Encrypt(); err != nil {
 				t.Errorf("CompareSimilarities() Load e error = %v", err)
